@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass
 from urllib.request import urlopen
 
@@ -54,6 +55,13 @@ def scrap_course(url, raw_category_data):
     return result
 
 
+def save_as_json_file(result):
+    file_path = "./sample_result.json"
+    print(result)
+    with open(file_path, 'w', encoding='UTF-8') as outfile:
+        json.dump(result, outfile, ensure_ascii=False, indent=4)
+
+
 def print_result(category_data):
     for course_data in category_data.values():
         for course in course_data:
@@ -66,4 +74,4 @@ if __name__ == "__main__":
     info = read_info_from_csv(CSV_PATH)
     result = scrap_category(info)
     print_result(result)
-    
+    save_as_json_file(result)
